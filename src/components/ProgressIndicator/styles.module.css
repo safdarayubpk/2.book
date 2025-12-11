@@ -1,0 +1,107 @@
+/**
+ * ProgressIndicator component styles
+ * Mobile-friendly progress bar with accessible design
+ */
+
+.progressContainer {
+  padding: 1rem;
+  background: var(--ifm-color-emphasis-100);
+  border-radius: 8px;
+  margin-bottom: 1rem;
+}
+
+/* Login prompt for unauthenticated users */
+.loginPrompt {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.5rem;
+  color: var(--ifm-color-emphasis-700);
+}
+
+.loginIcon {
+  font-size: 1.25rem;
+}
+
+.loginText {
+  font-size: 0.9rem;
+}
+
+/* Full variant styles */
+.progressHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.progressLabel {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--ifm-font-color-base);
+}
+
+.progressPercentage {
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--ifm-color-primary);
+}
+
+.progressBarContainer {
+  height: 8px;
+  background: var(--ifm-color-emphasis-200);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.progressBar {
+  height: 100%;
+  background: var(--ifm-color-primary);
+  border-radius: 4px;
+  transition: width 0.3s ease;
+  min-width: 0;
+}
+
+.progressDetails {
+  margin-top: 0.5rem;
+  font-size: 0.8rem;
+  color: var(--ifm-color-emphasis-600);
+}
+
+/* Compact variant styles */
+.progressCompact {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem;
+}
+
+.progressCompact .progressBarContainer {
+  flex: 1;
+  height: 6px;
+}
+
+.progressText {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--ifm-color-emphasis-700);
+  white-space: nowrap;
+}
+
+/* Mobile adjustments */
+@media (max-width: 576px) {
+  .progressContainer {
+    padding: 0.875rem;
+  }
+
+  .loginPrompt {
+    flex-direction: column;
+    text-align: center;
+    gap: 0.5rem;
+  }
+}
+
+/* Dark mode adjustments */
+[data-theme='dark'] .progressBarContainer {
+  background: var(--ifm-color-emphasis-300);
+}

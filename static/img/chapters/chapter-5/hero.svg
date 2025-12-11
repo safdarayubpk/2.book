@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400" fill="none">
+  <rect width="800" height="400" fill="#f0f4f8"/>
+  <circle cx="300" cy="150" r="40" fill="#1a73e8" opacity="0.3"/>
+  <circle cx="400" cy="180" r="50" fill="#1a73e8" opacity="0.5"/>
+  <circle cx="500" cy="150" r="60" fill="#1a73e8" opacity="0.7"/>
+  <path d="M300 150 L400 180 L500 150" stroke="#1a73e8" stroke-width="2"/>
+  <text x="400" y="300" text-anchor="middle" font-family="system-ui" font-size="24" fill="#333">Learning & Adaptation</text>
+  <text x="400" y="340" text-anchor="middle" font-family="system-ui" font-size="14" fill="#666">Chapter 5 Illustration</text>
+</svg>

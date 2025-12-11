@@ -1,0 +1,109 @@
+/**
+ * CSS files with the .module.css suffix will be treated as CSS modules
+ * and scoped locally.
+ */
+
+.heroBanner {
+  padding: 4rem 0;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+@media screen and (max-width: 996px) {
+  .heroBanner {
+    padding: 2rem;
+  }
+}
+
+.buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.features {
+  display: flex;
+  align-items: center;
+  padding: 2rem 0;
+  width: 100%;
+}
+
+/* Table of Contents styles */
+.tableOfContents {
+  padding: 3rem 0;
+  background: var(--ifm-color-emphasis-100);
+}
+
+.tocTitle {
+  text-align: center;
+  margin-bottom: 0.5rem;
+}
+
+.tocSubtitle {
+  text-align: center;
+  color: var(--ifm-color-emphasis-700);
+  margin-bottom: 1.5rem;
+}
+
+.progressWrapper {
+  max-width: 400px;
+  margin: 0 auto 2rem;
+}
+
+.chapterList {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.chapterCard {
+  display: block;
+  padding: 1.5rem;
+  background: var(--ifm-background-color);
+  border-radius: 12px;
+  text-decoration: none;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  border: 1px solid var(--ifm-color-emphasis-200);
+  min-height: 44px;
+}
+
+.chapterCard:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  text-decoration: none;
+}
+
+.chapterNumber {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--ifm-color-primary);
+  margin-bottom: 0.5rem;
+}
+
+.chapterTitle {
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+  color: var(--ifm-font-color-base);
+}
+
+.chapterDescription {
+  font-size: 0.9rem;
+  color: var(--ifm-color-emphasis-700);
+  margin: 0;
+  line-height: 1.5;
+}
+
+@media screen and (max-width: 576px) {
+  .chapterList {
+    grid-template-columns: 1fr;
+  }
+
+  .chapterCard {
+    padding: 1.25rem;
+  }
+}

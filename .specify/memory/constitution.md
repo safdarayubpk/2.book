@@ -1,50 +1,189 @@
-# [PROJECT_NAME] Constitution
-<!-- Example: Spec Constitution, TaskFlow Constitution, etc. -->
+<!--
+SYNC IMPACT REPORT
+==================
+Version change: 0.0.0 → 1.0.0
+Bump rationale: Initial constitution creation (MAJOR - first release)
+
+Modified principles:
+- N/A (new constitution)
+
+Added sections:
+- 8 Core Principles (I-VIII)
+- Technical Constraints (deployment stack, free tier limits)
+- Definition of Done (quality gates)
+- Governance
+
+Removed sections:
+- N/A (template placeholders replaced)
+
+Templates requiring updates:
+- .specify/templates/plan-template.md ✅ No updates needed (generic gates)
+- .specify/templates/spec-template.md ✅ No updates needed (generic structure)
+- .specify/templates/tasks-template.md ✅ No updates needed (generic structure)
+
+Follow-up TODOs:
+- None
+-->
+
+# AI-Native Textbook for Physical AI & Humanoid Robotics Constitution
 
 ## Core Principles
 
-### [PRINCIPLE_1_NAME]
-<!-- Example: I. Library-First -->
-[PRINCIPLE_1_DESCRIPTION]
-<!-- Example: Every feature starts as a standalone library; Libraries must be self-contained, independently testable, documented; Clear purpose required - no organizational-only libraries -->
+### I. Simplicity-First
 
-### [PRINCIPLE_2_NAME]
-<!-- Example: II. CLI Interface -->
-[PRINCIPLE_2_DESCRIPTION]
-<!-- Example: Every library exposes functionality via CLI; Text in/out protocol: stdin/args → stdout, errors → stderr; Support JSON + human-readable formats -->
+All frontend code MUST prioritize readability and minimalism over feature density.
 
-### [PRINCIPLE_3_NAME]
-<!-- Example: III. Test-First (NON-NEGOTIABLE) -->
-[PRINCIPLE_3_DESCRIPTION]
-<!-- Example: TDD mandatory: Tests written → User approved → Tests fail → Then implement; Red-Green-Refactor cycle strictly enforced -->
+- No extra animations beyond minimal useful motion
+- No overly long chapters (short + clear only)
+- No complex robotics code - educational content only
+- UI complexity MUST be justified before implementation
+- Every component SHOULD be understandable by a new developer within 5 minutes
 
-### [PRINCIPLE_4_NAME]
-<!-- Example: IV. Integration Testing -->
-[PRINCIPLE_4_DESCRIPTION]
-<!-- Example: Focus areas requiring integration tests: New library contract tests, Contract changes, Inter-service communication, Shared schemas -->
+**Rationale**: Users reading on phones with limited bandwidth need fast, clean interfaces.
+Complex UI increases cognitive load and defeats the educational purpose.
 
-### [PRINCIPLE_5_NAME]
-<!-- Example: V. Observability, VI. Versioning & Breaking Changes, VII. Simplicity -->
-[PRINCIPLE_5_DESCRIPTION]
-<!-- Example: Text I/O ensures debuggability; Structured logging required; Or: MAJOR.MINOR.BUILD format; Or: Start simple, YAGNI principles -->
+### II. Mobile-Ready Performance
 
-## [SECTION_2_NAME]
-<!-- Example: Additional Constraints, Security Requirements, Performance Standards, etc. -->
+The platform MUST perform well on low-end devices.
 
-[SECTION_2_CONTENT]
-<!-- Example: Technology stack requirements, compliance standards, deployment policies, etc. -->
+- Pages MUST load in under 3 seconds on 3G connections
+- Total book reading time MUST be under 45 minutes
+- All UI elements MUST be touch-friendly (minimum 44x44px tap targets)
+- Images MUST be optimized and lazy-loaded
+- Bundle size MUST be minimized (no heavy dependencies)
 
-## [SECTION_3_NAME]
-<!-- Example: Development Workflow, Review Process, Quality Gates, etc. -->
+**Rationale**: Target users include students on phones with limited data plans.
+Performance directly impacts learning outcomes.
 
-[SECTION_3_CONTENT]
-<!-- Example: Code review requirements, testing gates, deployment approval process, etc. -->
+### III. RAG Accuracy
+
+The chatbot MUST answer questions ONLY from book content with grounded, cited responses.
+
+- All RAG answers MUST include source citations from the textbook
+- Answers MUST NOT hallucinate or reference external knowledge
+- Chunking strategy MUST use MiniLM embeddings for optimal retrieval
+- Confidence thresholds MUST be implemented to avoid low-quality responses
+- Fallback behavior MUST gracefully handle unanswerable questions
+
+**Rationale**: Educational integrity requires answers be traceable to course material.
+Hallucinations undermine trust and educational value.
+
+### IV. Personalization-Driven
+
+Chapter content MUST adapt based on user background.
+
+- User profiles MUST capture relevant background information at signup
+- Content adaptation MUST be visibly different based on user context
+- Personalization MUST improve comprehension, not just novelty
+- Original content MUST remain accessible (personalization as enhancement)
+- Background collection MUST be minimal and privacy-respecting
+
+**Rationale**: Effective education meets learners where they are.
+One-size-fits-all content fails diverse audiences.
+
+### V. Free-Tier Compliance
+
+All infrastructure MUST operate within free tier limits.
+
+- Qdrant: MUST stay within free tier vector storage limits
+- Neon: MUST stay within free tier PostgreSQL limits
+- Vercel: MUST stay within free tier deployment limits
+- Railway: MUST stay within free tier backend limits
+- Token usage MUST be implemented in phases to control costs
+
+**Rationale**: The project must be sustainable without recurring costs.
+Exceeding free tiers defeats the accessibility mission.
+
+### VI. Educational Focus
+
+Content MUST prioritize learning outcomes over technical impressiveness.
+
+- 6-8 short, clean, modern chapters only
+- Each chapter MUST have auto-generated summaries and quizzes
+- Urdu translation MUST be available for all chapters (one-click)
+- No complex robotics code - only educational explanations
+- Learning boosters MUST reinforce key concepts
+
+**Rationale**: This is an educational platform, not a tech demo.
+Every feature must serve the learning mission.
+
+### VII. AI-Native Experience
+
+The platform MUST feel like a real AI-powered education platform.
+
+- Better-Auth MUST be used for user authentication
+- AI features (chatbot, personalization, translation) MUST be seamlessly integrated
+- Interactions MUST feel intelligent, not gimmicky
+- AI capabilities MUST enhance, not replace, core reading experience
+- Response latency for AI features MUST be under 2 seconds
+
+**Rationale**: "AI-native" means AI is integral to the experience, not bolted on.
+Users should feel they're using a next-generation learning tool.
+
+### VIII. Rapid Deployment
+
+The entire platform MUST be deployable and demonstrable within 90 seconds.
+
+- Frontend deploys to Vercel
+- Backend deploys to Railway
+- Vectors stored in Qdrant
+- Database in Neon
+- Deployment MUST be automated and reproducible
+- Health checks and logging MUST be implemented for reliability
+
+**Rationale**: Demo-ability proves the platform works.
+Complex deployment processes indicate hidden complexity.
+
+## Technical Constraints
+
+**Deployment Stack (Non-Negotiable)**:
+- Frontend: Docusaurus on Vercel
+- Backend: Railway
+- Vector Store: Qdrant (free tier)
+- Database: Neon PostgreSQL (free tier)
+
+**Performance Constraints**:
+- Clean UI, fast loading, mobile-friendly
+- Support low-end devices (users reading on phones)
+- Avoid complexity and heavy dependencies
+
+**Risk Mitigations**:
+- RAG low accuracy: Use chunking + MiniLM embeddings
+- Token usage high: Implement in phases
+- User confusion: Keep UI minimal and clean
+- Backend errors: Add health checks + logging
+
+## Definition of Done
+
+A feature is complete when ALL of the following are true:
+
+- [ ] All chapters visible and readable
+- [ ] Chatbot fully functional with grounded answers
+- [ ] Auth + personalization + translation working
+- [ ] Quizzes + summaries per chapter generated
+- [ ] Fully deployed URLs live and stable
+- [ ] 90-second demo recorded
+- [ ] Mobile testing passed on low-end device
+- [ ] Free tier limits verified
 
 ## Governance
-<!-- Example: Constitution supersedes all other practices; Amendments require documentation, approval, migration plan -->
 
-[GOVERNANCE_RULES]
-<!-- Example: All PRs/reviews must verify compliance; Complexity must be justified; Use [GUIDANCE_FILE] for runtime development guidance -->
+This constitution supersedes all other development practices for this project.
 
-**Version**: [CONSTITUTION_VERSION] | **Ratified**: [RATIFICATION_DATE] | **Last Amended**: [LAST_AMENDED_DATE]
-<!-- Example: Version: 2.1.1 | Ratified: 2025-06-13 | Last Amended: 2025-07-16 -->
+**Amendment Process**:
+1. Propose change with rationale
+2. Assess impact on existing features
+3. Document version increment (MAJOR/MINOR/PATCH)
+4. Update constitution and propagate to dependent templates
+
+**Versioning Policy**:
+- MAJOR: Backward-incompatible principle changes or removals
+- MINOR: New principle or section additions
+- PATCH: Clarifications and wording refinements
+
+**Compliance Review**:
+- All PRs MUST verify compliance with Core Principles
+- Complexity additions MUST be justified against Simplicity-First principle
+- Performance changes MUST be tested against Mobile-Ready constraints
+
+**Version**: 1.0.0 | **Ratified**: 2025-12-09 | **Last Amended**: 2025-12-09

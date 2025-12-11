@@ -1,0 +1,227 @@
+/**
+ * Mobile-first custom styles for Physical AI & Humanoid Robotics textbook.
+ * Optimized for readability on mobile devices with 3G performance targets.
+ */
+
+/* === Infima Variable Overrides === */
+:root {
+  --ifm-color-primary: #1a73e8;
+  --ifm-color-primary-dark: #1765cc;
+  --ifm-color-primary-darker: #155fc0;
+  --ifm-color-primary-darkest: #114e9e;
+  --ifm-color-primary-light: #3385eb;
+  --ifm-color-primary-lighter: #4590ed;
+  --ifm-color-primary-lightest: #6da8f1;
+  --ifm-code-font-size: 95%;
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+
+  /* Mobile-first typography */
+  --ifm-font-size-base: 16px;
+  --ifm-line-height-base: 1.65;
+  --ifm-heading-line-height: 1.3;
+
+  /* Readable line length */
+  --ifm-container-width: 800px;
+}
+
+[data-theme='dark'] {
+  --ifm-color-primary: #4da3ff;
+  --ifm-color-primary-dark: #2e91ff;
+  --ifm-color-primary-darker: #1f88ff;
+  --ifm-color-primary-darkest: #006de0;
+  --ifm-color-primary-light: #6cb5ff;
+  --ifm-color-primary-lighter: #7bbfff;
+  --ifm-color-primary-lightest: #a9d6ff;
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+}
+
+/* === Mobile-First Base Styles === */
+
+/* Ensure minimum 44x44px tap targets for all interactive elements */
+a,
+button,
+[role="button"],
+input,
+select,
+textarea {
+  min-height: 44px;
+  min-width: 44px;
+}
+
+/* Links within content can be inline */
+.markdown a,
+article a {
+  min-height: auto;
+  min-width: auto;
+}
+
+/* Navigation items need proper tap targets */
+.navbar__link,
+.menu__link,
+.pagination-nav__link {
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  padding: 8px 12px;
+}
+
+/* === Typography Optimizations === */
+
+/* Readable prose styling */
+.markdown {
+  font-size: 1rem;
+  line-height: 1.75;
+}
+
+.markdown h1 {
+  font-size: 2rem;
+  margin-top: 0;
+}
+
+.markdown h2 {
+  font-size: 1.5rem;
+  margin-top: 2rem;
+}
+
+.markdown h3 {
+  font-size: 1.25rem;
+  margin-top: 1.5rem;
+}
+
+/* Paragraph spacing for readability */
+.markdown p {
+  margin-bottom: 1.25rem;
+}
+
+/* === Image Styles === */
+
+/* Responsive images with lazy loading support */
+.markdown img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin: 1rem 0;
+}
+
+/* === Mobile Responsive Adjustments === */
+
+@media (max-width: 768px) {
+  /* Larger text on mobile for readability */
+  .markdown {
+    font-size: 1rem;
+    line-height: 1.8;
+  }
+
+  /* Prevent horizontal scroll */
+  .markdown pre {
+    max-width: 100%;
+    overflow-x: auto;
+  }
+
+  /* Full-width images on mobile */
+  .markdown img {
+    width: 100%;
+    border-radius: 4px;
+  }
+
+  /* Adjust heading sizes for mobile */
+  .markdown h1 {
+    font-size: 1.75rem;
+  }
+
+  .markdown h2 {
+    font-size: 1.35rem;
+  }
+
+  .markdown h3 {
+    font-size: 1.15rem;
+  }
+}
+
+/* === Code Block Styling === */
+
+/* Ensure code blocks don't overflow */
+.prism-code {
+  max-width: 100%;
+  overflow-x: auto;
+  font-size: 0.875rem;
+  border-radius: 8px;
+}
+
+/* === Pagination Navigation === */
+
+/* Make next/previous buttons touch-friendly */
+.pagination-nav {
+  margin-top: 2rem;
+}
+
+.pagination-nav__link {
+  padding: 1rem;
+  border-radius: 8px;
+  min-height: 60px;
+}
+
+/* === Chapter-Specific Styles === */
+
+/* Readable max-width for chapter content */
+.markdown {
+  max-width: 720px;
+}
+
+/* Chapter section spacing */
+.markdown hr {
+  margin: 2.5rem 0;
+  border: none;
+  border-top: 1px solid var(--ifm-color-emphasis-300);
+}
+
+/* Blockquotes for key concepts */
+.markdown blockquote {
+  border-left: 4px solid var(--ifm-color-primary);
+  padding: 0.5rem 1rem;
+  margin: 1.5rem 0;
+  background: var(--ifm-color-emphasis-100);
+  border-radius: 0 8px 8px 0;
+}
+
+/* Lists with proper spacing */
+.markdown ul,
+.markdown ol {
+  margin-bottom: 1.25rem;
+  padding-left: 1.5rem;
+}
+
+.markdown li {
+  margin-bottom: 0.5rem;
+}
+
+/* Bold text for emphasis */
+.markdown strong {
+  color: var(--ifm-color-primary-darkest);
+}
+
+[data-theme='dark'] .markdown strong {
+  color: var(--ifm-color-primary-lightest);
+}
+
+/* Chapter conclusion styling */
+.markdown p:last-of-type strong {
+  font-size: 1.05rem;
+}
+
+/* === Print Styles === */
+
+@media print {
+  .navbar,
+  .footer,
+  .pagination-nav,
+  .table-of-contents {
+    display: none;
+  }
+
+  .markdown {
+    font-size: 12pt;
+    line-height: 1.5;
+    max-width: none;
+  }
+}

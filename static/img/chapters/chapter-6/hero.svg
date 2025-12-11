@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400" fill="none">
+  <rect width="800" height="400" fill="#f0f4f8"/>
+  <rect x="200" y="120" width="80" height="100" rx="5" fill="#1a73e8" opacity="0.3"/>
+  <rect x="360" y="100" width="80" height="120" rx="5" fill="#1a73e8" opacity="0.5"/>
+  <rect x="520" y="80" width="80" height="140" rx="5" fill="#1a73e8" opacity="0.7"/>
+  <path d="M240 220 L400 220 L560 220" stroke="#1a73e8" stroke-width="2" stroke-dasharray="5,5"/>
+  <text x="400" y="300" text-anchor="middle" font-family="system-ui" font-size="24" fill="#333">Applications & Future</text>
+  <text x="400" y="340" text-anchor="middle" font-family="system-ui" font-size="14" fill="#666">Chapter 6 Illustration</text>
+</svg>
