@@ -6,12 +6,12 @@
 import type { ChatRequest, ChatResponse, SourceCitation } from '../types/chat';
 
 // Environment configuration for API base URL
-// In development: http://localhost:8000
-// In production: Set via environment variable or configure here
+// Production: HuggingFace Space
+// Development: Set ENV_API_URL to http://localhost:8000 for local testing
 const API_BASE_URL =
   typeof window !== 'undefined' && (window as unknown as { ENV_API_URL?: string }).ENV_API_URL
     ? (window as unknown as { ENV_API_URL: string }).ENV_API_URL
-    : 'http://localhost:8000';
+    : 'https://safdarayub-book-rag-api.hf.space';
 
 // Request timeout in milliseconds (60 seconds to accommodate AI generation + Qdrant Cloud latency)
 const REQUEST_TIMEOUT_MS = 60000;

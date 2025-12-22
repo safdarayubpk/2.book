@@ -15,6 +15,8 @@ Auto-generated from all feature plans. Last updated: 2025-12-13
 - Browser sessionStorage for conversation history (no additional backend storage) (007-chat-ui-highlight-ask)
 - TypeScript 5.x / CSS3 (Docusaurus theme customization) + Docusaurus 3.x, Infima CSS framework (built-in) (008-content-centered-layout)
 - N/A (CSS-only feature) (008-content-centered-layout)
+- Python 3.11 (existing backend) + FastAPI, uvicorn, cohere, qdrant-client, psycopg2-binary, openai, python-dotenv, pydantic (009-huggingface-backend)
+- Qdrant Cloud (vectors), Neon PostgreSQL (metadata) - external services, no local storage needed (009-huggingface-backend)
 
 ## Project Structure
 
@@ -46,9 +48,9 @@ TypeScript 5.x (Docusaurus uses TypeScript/React): Follow standard conventions
 Python 3.x: Follow existing patterns in scripts/ (load_env, batch processing, progress logging)
 
 ## Recent Changes
+- 009-huggingface-backend: Added Python 3.11 (existing backend) + FastAPI, uvicorn, cohere, qdrant-client, psycopg2-binary, openai, python-dotenv, pydantic
 - 008-content-centered-layout: Added TypeScript 5.x / CSS3 (Docusaurus theme customization) + Docusaurus 3.x, Infima CSS framework (built-in)
 - 007-chat-ui-highlight-ask: Added TypeScript 5.6, React 19.x + @docusaurus/core 3.9.2, @docusaurus/theme-classic (for swizzling), React 19.x
-- 006-rag-ai-agent: Added Python 3.x (matching existing scripts) + openai, fastapi, uvicorn, pydantic (extend existing api.py)
 
 <!-- MANUAL ADDITIONS START -->
 <!-- MANUAL ADDITIONS END -->

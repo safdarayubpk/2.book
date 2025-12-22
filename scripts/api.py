@@ -219,12 +219,17 @@ sessions: Dict[str, Session] = {}
 # =============================================================================
 
 def load_env() -> None:
-    """Load environment variables from .env file."""
+    """Load environment variables from .env file if it exists.
+
+    On HuggingFace Spaces, secrets are injected directly as environment variables,
+    so the .env file is optional.
+    """
     env_path = Path(__file__).parent.parent / ".env"
-    if not env_path.exists():
-        logger.error(f".env file not found at {env_path}")
-        raise RuntimeError("Configuration error: .env file not found")
-    load_dotenv(env_path, override=True)
+    if env_path.exists():
+        load_dotenv(env_path, override=True)
+        logger.info("Loaded environment from .env file")
+    else:
+        logger.info("No .env file found - using environment variables directly")
 
     required_vars = ["COHERE_API_KEY", "QDRANT_URL", "QDRANT_API_KEY", "DATABASE_URL", "OPENAI_API_KEY"]
     missing = [v for v in required_vars if not os.getenv(v)]
@@ -526,9 +531,17 @@ app = FastAPI(
 )
 
 # CORS middleware for frontend access
+# Includes localhost (dev), Vercel production, and Vercel preview deployments
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000", "http://127.0.0.1:3000"],
+    allow_origins=[
+        # Development
+        "http://localhost:3000",
+        "http://127.0.0.1:3000",
+        # Production (Vercel)
+        "https://2-book.vercel.app",
+    ],
+    allow_origin_regex=r"https://.*\.vercel\.app",  # Vercel preview deployments
     allow_credentials=True,
     allow_methods=["GET", "POST", "DELETE", "OPTIONS"],
     allow_headers=["*"],
