@@ -224,11 +224,12 @@ article a {
 }
 
 /* --- Full-width layout with edge sidebars --- */
-.docsWrapper {
+/* Note: Using attribute selectors to match Docusaurus hashed class names in production */
+[class*="docsWrapper"] {
   width: 100%;
 }
 
-.docRoot {
+[class*="docRoot"] {
   display: flex;
   width: 100%;
   max-width: var(--layout-max-width); /* Constrain layout width on wide screens */
@@ -236,34 +237,34 @@ article a {
 }
 
 /* --- Left Sidebar: Fixed width at left edge --- */
-.docSidebarContainer {
+[class*="docSidebarContainer"] {
   width: var(--layout-sidebar-width);
   flex: 0 0 var(--layout-sidebar-width);
 }
 
-.docSidebarContainer .menu {
+[class*="docSidebarContainer"] .menu {
   overflow-y: auto;
   max-height: calc(100vh - var(--ifm-navbar-height) - 2rem);
 }
 
 /* --- Main Content: Flexible, centered content --- */
-.docMainContainer {
+[class*="docMainContainer"] {
   flex: 1;
   min-width: 0;
 }
 
-.docMainContainer .container {
+[class*="docMainContainer"] .container {
   max-width: 100%;
   padding: 0 var(--layout-gap);
 }
 
 /* Content width constraint for optimal line length */
-.docMainContainer .markdown {
+[class*="docMainContainer"] .markdown {
   max-width: var(--layout-content-width);
 }
 
 /* --- Right TOC: Fixed width at right edge --- */
-.theme-doc-toc-desktop {
+[class*="theme-doc-toc-desktop"] {
   width: var(--layout-toc-width);
   flex: 0 0 var(--layout-toc-width);
   padding-left: var(--layout-gap);
@@ -297,7 +298,7 @@ article a {
 
 /* Tablet (768px-996px): TOC collapses */
 @media (max-width: 996px) {
-  .docMainContainer .container {
+  [class*="docMainContainer"] .container {
     padding: 0 var(--ifm-spacing-horizontal);
   }
 
@@ -310,15 +311,15 @@ article a {
 
 /* Mobile (max-width: 767px): Single column */
 @media (max-width: 767px) {
-  .docMainContainer .container {
+  [class*="docMainContainer"] .container {
     padding: 0 1rem;
   }
 
-  .docMainContainer .markdown {
+  [class*="docMainContainer"] .markdown {
     max-width: 100%;
   }
 
-  .docSidebarContainer {
+  [class*="docSidebarContainer"] {
     width: 100%;
     flex: none;
   }
