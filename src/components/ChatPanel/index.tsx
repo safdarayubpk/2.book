@@ -228,14 +228,22 @@ export default function ChatPanel(): React.ReactElement | null {
   const hasMessages = messages.length > 0;
 
   return (
-    <div
-      ref={panelRef}
-      className={`${styles.chatPanel} chat-panel`}
-      role="dialog"
-      aria-label="Chat panel"
-      aria-modal="true"
-      data-chat-exclude="true"
-    >
+    <>
+      {/* Backdrop overlay */}
+      <div
+        className={styles.backdrop}
+        onClick={closePanel}
+        aria-hidden="true"
+      />
+      {/* Chat panel */}
+      <div
+        ref={panelRef}
+        className={`${styles.chatPanel} chat-panel`}
+        role="dialog"
+        aria-label="Chat panel"
+        aria-modal="true"
+        data-chat-exclude="true"
+      >
       {/* Header */}
       <div className={styles.header}>
         <h2 className={styles.title}>Ask AI</h2>
@@ -329,5 +337,6 @@ export default function ChatPanel(): React.ReactElement | null {
         placeholder="Type your question..."
       />
     </div>
+    </>
   );
 }
