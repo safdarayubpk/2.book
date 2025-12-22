@@ -55,8 +55,8 @@
 - [x] T012 [US1] Wait for HuggingFace Space to build and show "Running" status
 - [x] T013 [US1] Verify /health endpoint returns ok status at https://safdarayub-book-rag-api.hf.space/health
 - [x] T014 [US1] Update API_BASE_URL in src/services/chatApi.ts to HuggingFace Space URL
-- [ ] T015 [US1] Rebuild frontend with npm run build and deploy to Vercel
-- [ ] T016 [US1] Test chatbot end-to-end: visit Vercel site, ask question, verify response with sources
+- [x] T015 [US1] Rebuild frontend with npm run build and deploy to Vercel
+- [x] T016 [US1] Test chatbot end-to-end: visit Vercel site, ask question, verify response with sources
 
 **Checkpoint**: User Story 1 complete - chatbot works for all visitors
 
