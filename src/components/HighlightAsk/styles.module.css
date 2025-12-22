@@ -1,0 +1,205 @@
+/**
+ * HighlightAsk styles
+ * Task T025
+ */
+
+/* Container for the highlight button - positioned absolutely */
+.highlightAskContainer {
+  position: fixed;
+  z-index: 1001;
+  pointer-events: none;
+}
+
+/* Ask AI button - floating near selection */
+.askButton {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 8px 14px;
+  border: none;
+  border-radius: 22px;
+  background: var(--ifm-color-primary);
+  color: white;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+  pointer-events: auto;
+  white-space: nowrap;
+}
+
+.askButton:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
+  background: var(--ifm-color-primary-dark);
+}
+
+.askButton:active {
+  transform: scale(0.98);
+}
+
+.askButton:focus {
+  outline: 2px solid var(--ifm-color-primary-lighter);
+  outline-offset: 2px;
+}
+
+.askButton svg {
+  flex-shrink: 0;
+}
+
+/* Expanded state with input field */
+.askButtonExpanded {
+  flex-direction: column;
+  align-items: stretch;
+  gap: 8px;
+  padding: 12px;
+  border-radius: 12px;
+  min-width: 280px;
+  max-width: 320px;
+  /* Ensure expanded view stays within viewport */
+  max-height: calc(100vh - 24px);
+  overflow-y: auto;
+}
+
+/* Header row when expanded */
+.expandedHeader {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.expandedLabel {
+  flex: 1;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+/* Close button in expanded mode */
+.closeExpandedButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  border: none;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.closeExpandedButton:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* Selected text preview */
+.selectedTextPreview {
+  font-size: 12px;
+  font-style: italic;
+  opacity: 0.9;
+  line-height: 1.4;
+  max-height: 60px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
+
+/* Follow-up question input */
+.questionInputContainer {
+  display: flex;
+  gap: 8px;
+}
+
+.questionInput {
+  flex: 1;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.95);
+  color: var(--ifm-font-color-base);
+  font-size: 13px;
+  outline: none;
+}
+
+.questionInput::placeholder {
+  color: var(--ifm-color-emphasis-500);
+}
+
+.questionInput:focus {
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.5);
+}
+
+/* Submit button in expanded mode */
+.submitButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border: none;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.submitButton:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.submitButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Animation for button appearance */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.askButton {
+  animation: fadeInUp 0.2s ease-out;
+}
+
+/* Mobile-specific styles */
+@media (max-width: 768px) {
+  .askButton {
+    padding: 10px 16px;
+    font-size: 15px;
+  }
+
+  .askButtonExpanded {
+    min-width: 260px;
+    max-width: calc(100vw - 32px);
+  }
+
+  .questionInput {
+    font-size: 16px; /* Prevent zoom on iOS */
+  }
+}
+
+/* Dark mode adjustments */
+[data-theme='dark'] .questionInput {
+  background: rgba(0, 0, 0, 0.3);
+  color: white;
+}
+
+[data-theme='dark'] .questionInput::placeholder {
+  color: rgba(255, 255, 255, 0.5);
+}

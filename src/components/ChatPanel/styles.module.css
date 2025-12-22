@@ -1,0 +1,250 @@
+/**
+ * ChatPanel styles
+ * Task T013
+ */
+
+/* Chat panel container */
+.chatPanel {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 400px;
+  max-width: 100vw;
+  height: 100vh;
+  background: var(--ifm-background-color);
+  box-shadow: -4px 0 20px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+  z-index: 1000;
+  transform: translateX(0);
+  transition: transform 0.3s ease-in-out;
+}
+
+/* Header */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--ifm-color-emphasis-200);
+  background: var(--ifm-background-surface-color);
+  flex-shrink: 0;
+}
+
+.title {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--ifm-font-color-base);
+}
+
+.closeButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border: none;
+  background: transparent;
+  border-radius: 50%;
+  cursor: pointer;
+  color: var(--ifm-color-emphasis-600);
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.closeButton:hover {
+  background: var(--ifm-color-emphasis-200);
+  color: var(--ifm-font-color-base);
+}
+
+.closeButton:focus {
+  outline: 2px solid var(--ifm-color-primary);
+  outline-offset: 2px;
+}
+
+/* Header actions container */
+.headerActions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* New conversation button */
+.newChatButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border: none;
+  background: transparent;
+  border-radius: 50%;
+  cursor: pointer;
+  color: var(--ifm-color-emphasis-600);
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.newChatButton:hover {
+  background: var(--ifm-color-emphasis-200);
+  color: var(--ifm-color-primary);
+}
+
+.newChatButton:focus {
+  outline: 2px solid var(--ifm-color-primary);
+  outline-offset: 2px;
+}
+
+/* Messages container */
+.messagesContainer {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* Loading indicator */
+.loadingContainer {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 20px;
+  color: var(--ifm-color-emphasis-600);
+}
+
+.loadingDots {
+  display: flex;
+  gap: 4px;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  background: var(--ifm-color-primary);
+  border-radius: 50%;
+  animation: bounce 1.4s infinite ease-in-out both;
+}
+
+.dot:nth-child(1) {
+  animation-delay: -0.32s;
+}
+
+.dot:nth-child(2) {
+  animation-delay: -0.16s;
+}
+
+@keyframes bounce {
+  0%,
+  80%,
+  100% {
+    transform: scale(0);
+  }
+  40% {
+    transform: scale(1);
+  }
+}
+
+.loadingText {
+  font-size: 14px;
+  font-style: italic;
+}
+
+/* Empty state */
+.emptyState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  text-align: center;
+  color: var(--ifm-color-emphasis-600);
+  flex: 1;
+}
+
+.emptyState svg {
+  margin-bottom: 16px;
+  opacity: 0.5;
+}
+
+.emptyState h3 {
+  margin: 0 0 8px;
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--ifm-font-color-base);
+}
+
+.emptyState p {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.5;
+  max-width: 280px;
+}
+
+/* Error message */
+.errorMessage {
+  margin: 8px 16px;
+  padding: 12px 16px;
+  background: var(--ifm-color-danger-contrast-background);
+  color: var(--ifm-color-danger-dark);
+  border-radius: 8px;
+  font-size: 14px;
+  border-left: 3px solid var(--ifm-color-danger);
+}
+
+/* Highlighted source animation */
+.highlighted {
+  animation: highlight-pulse 2s ease-out;
+}
+
+@keyframes highlight-pulse {
+  0% {
+    background: var(--ifm-color-primary-lightest);
+  }
+  100% {
+    background: transparent;
+  }
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .chatPanel {
+    width: 100vw;
+  }
+}
+
+@media (max-width: 480px) {
+  .header {
+    padding: 12px 16px;
+  }
+
+  .title {
+    font-size: 16px;
+  }
+
+  .messagesContainer {
+    padding: 12px 0;
+  }
+
+  .emptyState {
+    padding: 32px 16px;
+  }
+}
+
+/* Session expiration warning */
+.expirationWarning {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background: var(--ifm-color-warning-contrast-background);
+  color: var(--ifm-color-warning-dark);
+  font-size: 13px;
+  border-bottom: 1px solid var(--ifm-color-warning-light);
+  flex-shrink: 0;
+}
+
+.expirationWarning svg {
+  flex-shrink: 0;
+  color: var(--ifm-color-warning);
+}

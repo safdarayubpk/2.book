@@ -1,0 +1,183 @@
+/**
+ * ErrorMessage styles
+ * Task T045
+ */
+
+.errorContainer {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin: 8px 16px;
+  padding: 12px 16px;
+  border-radius: 8px;
+  background: var(--ifm-color-danger-contrast-background);
+  border-left: 3px solid var(--ifm-color-danger);
+  animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Error type variants */
+.errorContainer.network,
+.errorContainer.timeout {
+  background: var(--ifm-color-warning-contrast-background);
+  border-left-color: var(--ifm-color-warning);
+}
+
+.errorContainer.no_content {
+  background: var(--ifm-color-info-contrast-background);
+  border-left-color: var(--ifm-color-info);
+}
+
+.errorContainer.validation {
+  background: var(--ifm-color-emphasis-100);
+  border-left-color: var(--ifm-color-emphasis-500);
+}
+
+.errorContainer.session_expired {
+  background: var(--ifm-color-warning-contrast-background);
+  border-left-color: var(--ifm-color-warning);
+}
+
+/* Icon */
+.errorIcon {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--ifm-color-danger);
+}
+
+.network .errorIcon,
+.timeout .errorIcon,
+.session_expired .errorIcon {
+  color: var(--ifm-color-warning-dark);
+}
+
+.no_content .errorIcon {
+  color: var(--ifm-color-info-dark);
+}
+
+.validation .errorIcon {
+  color: var(--ifm-color-emphasis-600);
+}
+
+/* Content */
+.errorContent {
+  flex: 1;
+  min-width: 0;
+}
+
+.errorMessage {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--ifm-color-danger-dark);
+}
+
+.network .errorMessage,
+.timeout .errorMessage,
+.session_expired .errorMessage {
+  color: var(--ifm-color-warning-darkest);
+}
+
+.no_content .errorMessage {
+  color: var(--ifm-color-info-dark);
+}
+
+.validation .errorMessage {
+  color: var(--ifm-color-emphasis-800);
+}
+
+.errorSuggestion {
+  margin: 4px 0 0;
+  font-size: 12px;
+  color: var(--ifm-color-emphasis-600);
+  font-style: italic;
+}
+
+/* Actions */
+.errorActions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.retryButton {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 12px;
+  border: none;
+  border-radius: 6px;
+  background: var(--ifm-color-primary);
+  color: white;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.retryButton:hover {
+  background: var(--ifm-color-primary-dark);
+  transform: scale(1.02);
+}
+
+.retryButton:focus {
+  outline: 2px solid var(--ifm-color-primary);
+  outline-offset: 2px;
+}
+
+.retryButton:active {
+  transform: scale(0.98);
+}
+
+.dismissButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--ifm-color-emphasis-600);
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.dismissButton:hover {
+  background: var(--ifm-color-emphasis-200);
+  color: var(--ifm-color-emphasis-800);
+}
+
+.dismissButton:focus {
+  outline: 2px solid var(--ifm-color-primary);
+  outline-offset: 2px;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .errorContainer {
+    flex-wrap: wrap;
+    padding: 10px 12px;
+    margin: 8px 12px;
+  }
+
+  .errorActions {
+    width: 100%;
+    justify-content: flex-end;
+    margin-top: 8px;
+  }
+}

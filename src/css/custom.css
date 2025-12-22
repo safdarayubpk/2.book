@@ -209,6 +209,118 @@ article a {
   font-size: 1.05rem;
 }
 
+/* === Content-Centered Layout with Edge Sidebars === */
+/* Feature: 008-content-centered-layout */
+/* Purpose: Sidebars at edges, content centered with constrained reading width */
+
+/* --- Layout Variables --- */
+:root {
+  --layout-content-width: 800px;      /* Content column max width */
+  --layout-sidebar-width: 260px;      /* Navigation sidebar width */
+  --layout-toc-width: 240px;          /* TOC sidebar width */
+  --layout-gap: 16px;                 /* Gap between elements */
+}
+
+/* --- Full-width layout with edge sidebars --- */
+.docsWrapper {
+  width: 100%;
+}
+
+.docRoot {
+  display: flex;
+  width: 100%;
+  max-width: 100%;
+}
+
+/* --- Left Sidebar: Fixed width at left edge --- */
+.docSidebarContainer {
+  width: var(--layout-sidebar-width);
+  flex: 0 0 var(--layout-sidebar-width);
+}
+
+.docSidebarContainer .menu {
+  overflow-y: auto;
+  max-height: calc(100vh - var(--ifm-navbar-height) - 2rem);
+}
+
+/* --- Main Content: Flexible, centered content --- */
+.docMainContainer {
+  flex: 1;
+  min-width: 0;
+}
+
+.docMainContainer .container {
+  max-width: 100%;
+  padding: 0 var(--layout-gap);
+}
+
+/* Content width constraint for optimal line length */
+.docMainContainer .markdown {
+  max-width: var(--layout-content-width);
+}
+
+/* --- Right TOC: Fixed width at right edge --- */
+.theme-doc-toc-desktop {
+  width: var(--layout-toc-width);
+  flex: 0 0 var(--layout-toc-width);
+  padding-left: var(--layout-gap);
+  padding-right: 0 !important;
+  margin-right: 0 !important;
+}
+
+/* Remove any wrapper padding on the right */
+.col[class*="col--"] {
+  padding-right: 0;
+}
+
+.tableOfContents {
+  position: sticky;
+  top: calc(var(--ifm-navbar-height) + 1rem);
+  max-height: calc(100vh - var(--ifm-navbar-height) - 2rem);
+  overflow-y: auto;
+  padding-right: 1rem; /* Small padding for text not touching scrollbar */
+}
+
+/* --- Responsive Breakpoints --- */
+
+/* Desktop with TOC (997px-1199px): Compact layout */
+@media (min-width: 997px) and (max-width: 1199px) {
+  :root {
+    --layout-sidebar-width: 220px;
+    --layout-toc-width: 200px;
+    --layout-gap: 16px;
+  }
+}
+
+/* Tablet (768px-996px): TOC collapses */
+@media (max-width: 996px) {
+  .docMainContainer .container {
+    padding: 0 var(--ifm-spacing-horizontal);
+  }
+
+  .tableOfContents {
+    width: 100%;
+    position: relative;
+    top: 0;
+  }
+}
+
+/* Mobile (max-width: 767px): Single column */
+@media (max-width: 767px) {
+  .docMainContainer .container {
+    padding: 0 1rem;
+  }
+
+  .docMainContainer .markdown {
+    max-width: 100%;
+  }
+
+  .docSidebarContainer {
+    width: 100%;
+    flex: none;
+  }
+}
+
 /* === Print Styles === */
 
 @media print {
