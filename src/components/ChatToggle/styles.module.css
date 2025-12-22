@@ -1,0 +1,48 @@
+/**
+ * ChatToggle styles
+ * Task T011
+ */
+
+.chatToggle {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  border: none;
+  background-color: var(--ifm-color-primary);
+  color: white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transition: transform 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+  z-index: 999;
+}
+
+.chatToggle:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+}
+
+.chatToggle:focus {
+  outline: 2px solid var(--ifm-color-primary);
+  outline-offset: 2px;
+}
+
+.chatToggle:active {
+  transform: scale(0.95);
+}
+
+.chatToggle.open {
+  background-color: var(--ifm-color-emphasis-700);
+}
+
+/* Hide on mobile when panel is open */
+@media (max-width: 768px) {
+  .chatToggle.open {
+    display: none;
+  }
+}

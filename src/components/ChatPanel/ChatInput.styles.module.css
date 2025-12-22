@@ -1,0 +1,97 @@
+/**
+ * ChatInput styles
+ * Task T015
+ */
+
+.inputContainer {
+  display: flex;
+  flex-direction: column;
+  padding: 12px;
+  border-top: 1px solid var(--ifm-color-emphasis-200);
+  background: var(--ifm-background-color);
+}
+
+.inputContainer.focused {
+  border-top-color: var(--ifm-color-primary);
+}
+
+.textarea {
+  width: 100%;
+  min-height: 40px;
+  max-height: 120px;
+  padding: 10px 12px;
+  border: 1px solid var(--ifm-color-emphasis-300);
+  border-radius: 8px;
+  resize: none;
+  font-family: inherit;
+  font-size: 14px;
+  line-height: 1.5;
+  background: var(--ifm-background-surface-color);
+  color: var(--ifm-font-color-base);
+  transition: border-color 0.2s ease;
+}
+
+.textarea:focus {
+  outline: none;
+  border-color: var(--ifm-color-primary);
+}
+
+.textarea:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.textarea::placeholder {
+  color: var(--ifm-color-emphasis-500);
+}
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 8px;
+}
+
+.charCounter {
+  font-size: 12px;
+  color: var(--ifm-color-emphasis-600);
+  transition: color 0.2s ease;
+}
+
+.charCounter.nearLimit {
+  color: var(--ifm-color-warning);
+}
+
+.charCounter.atLimit {
+  color: var(--ifm-color-danger);
+  font-weight: 500;
+}
+
+.sendButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border: none;
+  border-radius: 50%;
+  background: var(--ifm-color-primary);
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.sendButton:hover:not(:disabled) {
+  background: var(--ifm-color-primary-dark);
+  transform: scale(1.05);
+}
+
+.sendButton:disabled {
+  background: var(--ifm-color-emphasis-400);
+  cursor: not-allowed;
+}
+
+.sendButton:focus {
+  outline: 2px solid var(--ifm-color-primary);
+  outline-offset: 2px;
+}

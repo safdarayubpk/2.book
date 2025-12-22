@@ -1,0 +1,152 @@
+/**
+ * ChatMessage styles
+ * Task T017
+ */
+
+.messageContainer {
+  display: flex;
+  flex-direction: column;
+  padding: 8px 16px;
+  max-width: 100%;
+}
+
+.messageContainer.user {
+  align-items: flex-end;
+}
+
+.messageContainer.assistant {
+  align-items: flex-start;
+}
+
+/* Highlighted context */
+.highlightContext {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 8px;
+  padding: 8px 12px;
+  background: var(--ifm-color-emphasis-100);
+  border-left: 3px solid var(--ifm-color-primary);
+  border-radius: 0 6px 6px 0;
+  font-size: 12px;
+  max-width: 90%;
+}
+
+.contextLabel {
+  font-weight: 600;
+  color: var(--ifm-color-primary);
+  text-transform: uppercase;
+  font-size: 10px;
+  letter-spacing: 0.5px;
+}
+
+.contextText {
+  color: var(--ifm-color-emphasis-700);
+  font-style: italic;
+  line-height: 1.4;
+}
+
+/* Message bubble */
+.messageBubble {
+  max-width: 85%;
+  padding: 10px 14px;
+  border-radius: 16px;
+  position: relative;
+}
+
+.user .messageBubble {
+  background: var(--ifm-color-primary);
+  color: white;
+  border-bottom-right-radius: 4px;
+}
+
+.assistant .messageBubble {
+  background: var(--ifm-color-emphasis-100);
+  color: var(--ifm-font-color-base);
+  border-bottom-left-radius: 4px;
+}
+
+/* Message content */
+.messageContent {
+  font-size: 14px;
+  line-height: 1.5;
+  word-wrap: break-word;
+  white-space: pre-wrap;
+}
+
+/* Citation links in message */
+.citationLink {
+  display: inline;
+  padding: 1px 4px;
+  margin: 0 1px;
+  border: none;
+  background: var(--ifm-color-primary-lightest);
+  color: var(--ifm-color-primary-dark);
+  font-size: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  border-radius: 4px;
+  transition: background-color 0.2s ease, transform 0.1s ease, box-shadow 0.2s ease;
+  vertical-align: baseline;
+}
+
+.user .citationLink {
+  background: rgba(255, 255, 255, 0.25);
+  color: white;
+}
+
+.citationLink:hover {
+  background: var(--ifm-color-primary-lighter);
+  transform: scale(1.05);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+}
+
+.citationLink:focus {
+  outline: 2px solid var(--ifm-color-primary);
+  outline-offset: 1px;
+}
+
+.user .citationLink:hover {
+  background: rgba(255, 255, 255, 0.35);
+}
+
+/* Active/highlighted state when source is clicked */
+.citationLink.highlighted {
+  animation: citation-pulse 1.5s ease-out;
+}
+
+@keyframes citation-pulse {
+  0% {
+    background: var(--ifm-color-primary);
+    color: white;
+    transform: scale(1.15);
+    box-shadow: 0 0 8px var(--ifm-color-primary);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    background: var(--ifm-color-primary-lightest);
+    color: var(--ifm-color-primary-dark);
+    transform: scale(1);
+    box-shadow: none;
+  }
+}
+
+/* Timestamp */
+.timestamp {
+  display: block;
+  margin-top: 4px;
+  font-size: 10px;
+  opacity: 0.7;
+  text-align: right;
+}
+
+.user .timestamp {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.assistant .timestamp {
+  color: var(--ifm-color-emphasis-600);
+}

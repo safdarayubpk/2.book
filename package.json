@@ -12,7 +12,8 @@
     "serve": "docusaurus serve",
     "write-translations": "docusaurus write-translations",
     "write-heading-ids": "docusaurus write-heading-ids",
-    "typecheck": "tsc"
+    "typecheck": "tsc",
+    "ingest": "tsx scripts/ingest-content.ts"
   },
   "dependencies": {
     "@docusaurus/core": "3.9.2",
@@ -27,7 +28,18 @@
     "@docusaurus/module-type-aliases": "3.9.2",
     "@docusaurus/tsconfig": "3.9.2",
     "@docusaurus/types": "3.9.2",
-    "typescript": "~5.6.2"
+    "@types/node": "^25.0.1",
+    "ajv": "^8.17.1",
+    "ajv-cli": "^5.0.0",
+    "ajv-formats": "^3.0.1",
+    "gray-matter": "^4.0.3",
+    "remark": "^15.0.1",
+    "remark-parse": "^11.0.0",
+    "remark-stringify": "^11.0.0",
+    "strip-markdown": "^6.0.0",
+    "tsx": "^4.21.0",
+    "typescript": "~5.6.2",
+    "unified": "^11.0.5"
   },
   "browserslist": {
     "production": [

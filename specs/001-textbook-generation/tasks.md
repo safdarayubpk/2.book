@@ -123,9 +123,12 @@
 - [X] T036 [P] Add lazy loading attribute to all chapter images
 - [X] T037 Test all pages on mobile devices (verify no horizontal scroll, touch targets work)
 - [X] T038 Configure Vercel deployment (vercel.json or auto-detect)
-- [ ] T039 Deploy to Vercel and verify all URLs work (/, /docs/intro, /docs/chapter-1 through /docs/chapter-6)
+- [X] T039 Deploy to Vercel and verify all URLs work (/, /docs/intro, /docs/chapter-1 through /docs/chapter-6)
+  - GitHub: https://github.com/safdarayubpk/2.book.git
+  - Production: https://2-book.vercel.app/
+  - Preview: https://2-book-git-main-safdar-ayubs-projects.vercel.app/
 - [X] T040 Run quickstart.md validation checklist
-- [ ] T041 Record 90-second demo video showing textbook reading experience
+- [X] T041 Record 90-second demo video showing textbook reading experience
 
 ---
 
