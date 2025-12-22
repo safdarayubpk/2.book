@@ -19,11 +19,11 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-# RAG Pipeline output
-/data/chunks.json
-
-# Environment variables (secrets)
+# Environment variables (secrets) - IMPORTANT: DO NOT COMMIT
 .env
+
+# Large vector data files - typically regenerated
+/data/chunks.json
 
 # Python
 __pycache__/
