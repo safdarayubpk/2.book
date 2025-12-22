@@ -214,11 +214,13 @@ article a {
 /* Purpose: Sidebars at edges, content centered with constrained reading width */
 
 /* --- Layout Variables --- */
+/* Feature: 010-layout-spacing - Reduced horizontal gaps for visual cohesion */
 :root {
-  --layout-content-width: 800px;      /* Content column max width */
+  --layout-max-width: 1500px;         /* Maximum layout container width - groups elements on wide screens */
+  --layout-content-width: 900px;      /* Content column max width (was 800px) - better density */
   --layout-sidebar-width: 260px;      /* Navigation sidebar width */
   --layout-toc-width: 240px;          /* TOC sidebar width */
-  --layout-gap: 16px;                 /* Gap between elements */
+  --layout-gap: 24px;                 /* Gap between elements (was 16px) - symmetric spacing */
 }
 
 /* --- Full-width layout with edge sidebars --- */
@@ -229,7 +231,8 @@ article a {
 .docRoot {
   display: flex;
   width: 100%;
-  max-width: 100%;
+  max-width: var(--layout-max-width); /* Constrain layout width on wide screens */
+  margin: 0 auto;                     /* Center the container */
 }
 
 /* --- Left Sidebar: Fixed width at left edge --- */
@@ -288,7 +291,7 @@ article a {
   :root {
     --layout-sidebar-width: 220px;
     --layout-toc-width: 200px;
-    --layout-gap: 16px;
+    --layout-gap: 20px;               /* Slightly reduced from 24px for tighter viewports */
   }
 }
 
