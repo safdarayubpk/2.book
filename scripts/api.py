@@ -39,6 +39,9 @@ from qdrant_client import QdrantClient
 # Import auth routes (relative import for package structure)
 from .auth_routes import router as auth_router
 
+# Import personalization utilities
+from .personalization_utils import personalize_chapter_content, VALID_CHAPTER_SLUGS
+
 
 # Configure logging
 logging.basicConfig(
@@ -124,6 +127,56 @@ class ErrorResponse(BaseModel):
     """Standardized error response."""
     error: str = Field(..., description="Error type identifier")
     message: str = Field(..., description="Human-readable error message")
+
+
+# =============================================================================
+# Personalization Pydantic Models
+# =============================================================================
+
+class UserProfile(BaseModel):
+    """User profile for personalization."""
+    programming_level: str = Field(
+        ...,
+        description="User's programming experience level",
+        pattern="^(beginner|intermediate|advanced)$"
+    )
+    hardware_background: str = Field(
+        ...,
+        description="User's hardware/robotics experience",
+        pattern="^(none|hobbyist|professional)$"
+    )
+    learning_goals: List[str] = Field(
+        ...,
+        min_length=1,
+        description="User's learning objectives"
+    )
+
+
+class PersonalizeRequest(BaseModel):
+    """Request for content personalization."""
+    chapter_slug: str = Field(
+        ...,
+        description="Chapter identifier (intro, chapter-1 through chapter-6)"
+    )
+    user_profile: UserProfile = Field(
+        ...,
+        description="User's background information"
+    )
+
+
+class PersonalizeMetadata(BaseModel):
+    """Metadata about the personalization process."""
+    processing_time_ms: int = Field(..., description="Time taken to personalize")
+    tokens_used: int = Field(..., description="OpenAI tokens consumed")
+    profile_summary: str = Field(..., description="Summary of personalization applied")
+
+
+class PersonalizeResponse(BaseModel):
+    """Response with personalized content."""
+    chapter_slug: str = Field(..., description="Echo of input chapter slug")
+    original_title: str = Field(..., description="Original chapter title")
+    personalized_content: str = Field(..., description="AI-generated personalized content")
+    metadata: PersonalizeMetadata = Field(..., description="Processing information")
 
 
 # =============================================================================
@@ -804,6 +857,81 @@ async def delete_session(session_id: str):
         return {"message": "Session ended successfully"}
     else:
         raise HTTPException(status_code=404, detail="Session not found")
+
+
+@app.post("/personalize", response_model=PersonalizeResponse)
+async def personalize_content(request: PersonalizeRequest):
+    """
+    Personalize chapter content based on user profile.
+
+    Takes a chapter slug and user profile, returns personalized content
+    adapted to the user's programming level, hardware background, and learning goals.
+    """
+    start_time = time.time()
+
+    # Log request
+    logger.info(f"Personalize request: chapter={request.chapter_slug}, "
+                f"level={request.user_profile.programming_level}, "
+                f"hardware={request.user_profile.hardware_background}")
+
+    # Validate chapter slug
+    if request.chapter_slug not in VALID_CHAPTER_SLUGS:
+        raise HTTPException(
+            status_code=400,
+            detail=f"Invalid chapter_slug: must be one of {', '.join(VALID_CHAPTER_SLUGS)}"
+        )
+
+    # Validate learning goals
+    valid_goals = {"career_transition", "academic", "personal", "upskilling"}
+    for goal in request.user_profile.learning_goals:
+        if goal not in valid_goals:
+            raise HTTPException(
+                status_code=400,
+                detail=f"Invalid learning goal '{goal}': must be one of {', '.join(valid_goals)}"
+            )
+
+    try:
+        # Call personalization utility
+        result = personalize_chapter_content(
+            openai_client=openai_client,
+            qdrant_client=qdrant_client,
+            chapter_slug=request.chapter_slug,
+            programming_level=request.user_profile.programming_level,
+            hardware_background=request.user_profile.hardware_background,
+            learning_goals=request.user_profile.learning_goals
+        )
+
+        # Build response
+        response = PersonalizeResponse(
+            chapter_slug=result["chapter_slug"],
+            original_title=result["original_title"],
+            personalized_content=result["personalized_content"],
+            metadata=PersonalizeMetadata(
+                processing_time_ms=result["metadata"]["processing_time_ms"],
+                tokens_used=result["metadata"]["tokens_used"],
+                profile_summary=result["metadata"]["profile_summary"]
+            )
+        )
+
+        elapsed = time.time() - start_time
+        logger.info(f"Personalization complete: {elapsed:.2f}s")
+
+        return response
+
+    except ValueError as e:
+        # Content not found or invalid input
+        logger.warning(f"Personalization validation error: {e}")
+        raise HTTPException(status_code=404, detail=str(e))
+
+    except RuntimeError as e:
+        # OpenAI or other runtime error
+        logger.error(f"Personalization runtime error: {e}")
+        raise HTTPException(status_code=500, detail="Unable to personalize content. Please try again.")
+
+    except Exception as e:
+        # Unexpected error
+        logger.error(f"Personalization unexpected error: {e}")
+        raise HTTPException(status_code=500, detail="An unexpected error occurred")
 
 
 # =============================================================================
