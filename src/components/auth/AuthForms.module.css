@@ -19,7 +19,7 @@
 }
 
 .modal {
-  background: var(--ifm-background-color);
+  background: #ffffff;
   border-radius: 12px;
   padding: 2rem;
   max-width: 420px;
@@ -27,6 +27,11 @@
   max-height: 90vh;
   overflow-y: auto;
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+}
+
+/* Dark mode - solid dark background */
+[data-theme='dark'] .modal {
+  background: #1b1b1d;
 }
 
 .modalHeader {
@@ -78,12 +83,18 @@
 
 .input {
   padding: 0.75rem 1rem;
-  border: 1px solid var(--ifm-color-emphasis-300);
+  border: 1px solid #d1d5db;
   border-radius: 8px;
   font-size: 1rem;
-  background: var(--ifm-background-surface-color);
-  color: var(--ifm-font-color-base);
+  background: #ffffff;
+  color: #1f2937;
   transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+[data-theme='dark'] .input {
+  background: #2d2d30;
+  border-color: #444;
+  color: #e5e5e5;
 }
 
 .input:focus {
@@ -98,12 +109,18 @@
 
 .select {
   padding: 0.75rem 1rem;
-  border: 1px solid var(--ifm-color-emphasis-300);
+  border: 1px solid #d1d5db;
   border-radius: 8px;
   font-size: 1rem;
-  background: var(--ifm-background-surface-color);
-  color: var(--ifm-font-color-base);
+  background: #ffffff;
+  color: #1f2937;
   cursor: pointer;
+}
+
+[data-theme='dark'] .select {
+  background: #2d2d30;
+  border-color: #444;
+  color: #e5e5e5;
 }
 
 .select:focus {
