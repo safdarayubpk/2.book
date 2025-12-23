@@ -16,8 +16,8 @@ from passlib.context import CryptContext
 JWT_ALGORITHM = "HS256"
 JWT_EXPIRATION_DAYS = 7
 
-# Password hashing context - handles bcrypt properly
-pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+# Password hashing context - use argon2 (no 72-byte limit like bcrypt)
+pwd_context = CryptContext(schemes=["argon2"], deprecated="auto")
 
 
 def get_secret_key() -> str:
