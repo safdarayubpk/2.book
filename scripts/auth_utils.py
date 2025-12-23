@@ -9,12 +9,15 @@ from datetime import datetime, timedelta
 from typing import Optional
 
 import jwt
-from passlib.hash import bcrypt
+from passlib.context import CryptContext
 
 
 # JWT Configuration
 JWT_ALGORITHM = "HS256"
 JWT_EXPIRATION_DAYS = 7
+
+# Password hashing context - handles bcrypt properly
+pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 
 def get_secret_key() -> str:
@@ -35,7 +38,7 @@ def hash_password(password: str) -> str:
     Returns:
         Hashed password string
     """
-    return bcrypt.hash(password)
+    return pwd_context.hash(password)
 
 
 def verify_password(password: str, password_hash: str) -> bool:
@@ -50,7 +53,7 @@ def verify_password(password: str, password_hash: str) -> bool:
         True if password matches, False otherwise
     """
     try:
-        return bcrypt.verify(password, password_hash)
+        return pwd_context.verify(password, password_hash)
     except Exception:
         return False
 
