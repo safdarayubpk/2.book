@@ -8,8 +8,8 @@ import type { User, SignUpData, SignInData, AuthContextType, SessionResponse, Au
 
 // API base URL - use environment variable or default to HuggingFace Spaces
 const API_BASE_URL = typeof window !== 'undefined'
-  ? (window as any).__AUTH_API_URL__ || 'https://safdarayubpk-2book-backend.hf.space'
-  : 'https://safdarayubpk-2book-backend.hf.space';
+  ? (window as any).__AUTH_API_URL__ || 'https://safdarayub-book-rag-api.hf.space'
+  : 'https://safdarayub-book-rag-api.hf.space';
 
 const AuthContext = createContext<AuthContextType | null>(null);
 
