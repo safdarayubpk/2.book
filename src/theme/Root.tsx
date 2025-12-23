@@ -5,6 +5,7 @@
 
 import React, { lazy, Suspense } from 'react';
 import { ChatProvider } from '../context/ChatContext';
+import { AuthProvider } from '../context/AuthContext';
 import ChatToggle from '../components/ChatToggle';
 
 // Lazy-load heavy components for bundle optimization (T056)
@@ -21,13 +22,15 @@ interface RootProps {
  */
 export default function Root({ children }: RootProps): React.ReactElement {
   return (
-    <ChatProvider>
-      {children}
-      <ChatToggle />
-      <Suspense fallback={null}>
-        <ChatPanel />
-        <HighlightAsk />
-      </Suspense>
-    </ChatProvider>
+    <AuthProvider>
+      <ChatProvider>
+        {children}
+        <ChatToggle />
+        <Suspense fallback={null}>
+          <ChatPanel />
+          <HighlightAsk />
+        </Suspense>
+      </ChatProvider>
+    </AuthProvider>
   );
 }

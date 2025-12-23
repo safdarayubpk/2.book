@@ -18,6 +18,8 @@ Auto-generated from all feature plans. Last updated: 2025-12-13
 - Python 3.11 (existing backend) + FastAPI, uvicorn, cohere, qdrant-client, psycopg2-binary, openai, python-dotenv, pydantic (009-huggingface-backend)
 - Qdrant Cloud (vectors), Neon PostgreSQL (metadata) - external services, no local storage needed (009-huggingface-backend)
 - CSS3 (within Docusaurus 3.x TypeScript/React project) + Docusaurus classic theme, Infima CSS framework (010-layout-spacing)
+- Python 3.11 (backend), TypeScript 5.x (frontend) + FastAPI, uvicorn, passlib, PyJWT (backend); React 18.x, Docusaurus 3.x (frontend) (011-user-auth)
+- Neon PostgreSQL (existing - add users/sessions tables) (011-user-auth)
 
 ## Project Structure
 
@@ -49,9 +51,9 @@ TypeScript 5.x (Docusaurus uses TypeScript/React): Follow standard conventions
 Python 3.x: Follow existing patterns in scripts/ (load_env, batch processing, progress logging)
 
 ## Recent Changes
+- 011-user-auth: Added Python 3.11 (backend), TypeScript 5.x (frontend) + FastAPI, uvicorn, passlib, PyJWT (backend); React 18.x, Docusaurus 3.x (frontend)
 - 010-layout-spacing: Added CSS3 (within Docusaurus 3.x TypeScript/React project) + Docusaurus classic theme, Infima CSS framework
 - 009-huggingface-backend: Added Python 3.11 (existing backend) + FastAPI, uvicorn, cohere, qdrant-client, psycopg2-binary, openai, python-dotenv, pydantic
-- 008-content-centered-layout: Added TypeScript 5.x / CSS3 (Docusaurus theme customization) + Docusaurus 3.x, Infima CSS framework (built-in)
 
 <!-- MANUAL ADDITIONS START -->
 <!-- MANUAL ADDITIONS END -->

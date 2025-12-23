@@ -36,6 +36,9 @@ from openai import OpenAI, APIError, APIConnectionError, RateLimitError
 from pydantic import BaseModel, Field
 from qdrant_client import QdrantClient
 
+# Import auth routes
+from auth_routes import router as auth_router
+
 
 # Configure logging
 logging.basicConfig(
@@ -546,6 +549,9 @@ app.add_middleware(
     allow_methods=["GET", "POST", "DELETE", "OPTIONS"],
     allow_headers=["*"],
 )
+
+# Include auth routes
+app.include_router(auth_router)
 
 
 # =============================================================================

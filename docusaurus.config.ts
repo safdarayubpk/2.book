@@ -64,6 +64,10 @@ const config: Config = {
           position: 'left',
           label: 'Textbook',
         },
+        {
+          type: 'custom-authButton',
+          position: 'right',
+        },
       ],
     },
     footer: {
