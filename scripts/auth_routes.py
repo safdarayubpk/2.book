@@ -185,8 +185,8 @@ async def sign_up(request: SignUpRequest, response: Response):
         raise
     except Exception as e:
         conn.rollback()
-        logger.error(f"Sign up error: {e}")
-        raise HTTPException(status_code=500, detail="Failed to create account")
+        logger.error(f"Sign up error: {type(e).__name__}: {e}")
+        raise HTTPException(status_code=500, detail=f"Failed to create account: {type(e).__name__}")
     finally:
         cursor.close()
         conn.close()
