@@ -17,7 +17,7 @@ import psycopg2
 from fastapi import APIRouter, HTTPException, Request, Response
 from pydantic import BaseModel, EmailStr, Field
 
-from auth_utils import (
+from .auth_utils import (
     create_access_token,
     decode_access_token,
     get_token_expiry_seconds,
