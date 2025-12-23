@@ -1,0 +1,199 @@
+openapi: 3.0.3
+info:
+  title: Content Personalization API
+  description: API endpoint for personalizing chapter content based on user profile
+  version: 1.0.0
+
+servers:
+  - url: https://safdarayub-book-rag-api.hf.space
+    description: Production (HuggingFace Spaces)
+  - url: http://localhost:8000
+    description: Local development
+
+paths:
+  /personalize:
+    post:
+      summary: Personalize chapter content
+      description: |
+        Takes a chapter slug and user profile, returns personalized content
+        adapted to the user's programming level, hardware background, and learning goals.
+      operationId: personalizeContent
+      tags:
+        - Personalization
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PersonalizeRequest'
+            example:
+              chapter_slug: "chapter-1"
+              user_profile:
+                programming_level: "beginner"
+                hardware_background: "none"
+                learning_goals: ["personal", "career_transition"]
+      responses:
+        '200':
+          description: Successfully personalized content
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PersonalizeResponse'
+              example:
+                chapter_slug: "chapter-1"
+                original_title: "Introduction to Physical AI"
+                personalized_content: "# Introduction to Physical AI\n\nImagine a robot that can..."
+                metadata:
+                  processing_time_ms: 3500
+                  tokens_used: 1250
+                  profile_summary: "Adapted for beginner programmers with no hardware background"
+        '400':
+          description: Invalid request (bad chapter slug or profile)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                error: "validation_error"
+                message: "Invalid chapter_slug: must be one of intro, chapter-1 through chapter-6"
+        '401':
+          description: User not authenticated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                error: "unauthorized"
+                message: "Please sign in to personalize content"
+        '404':
+          description: Chapter not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                error: "not_found"
+                message: "Chapter content not found for slug: chapter-99"
+        '500':
+          description: Internal server error (AI service unavailable)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                error: "internal_error"
+                message: "Unable to personalize content. Please try again."
+        '504':
+          description: Timeout (personalization took too long)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                error: "timeout"
+                message: "Personalization timed out. Please try again."
+
+components:
+  schemas:
+    PersonalizeRequest:
+      type: object
+      required:
+        - chapter_slug
+        - user_profile
+      properties:
+        chapter_slug:
+          type: string
+          description: Chapter identifier
+          enum:
+            - intro
+            - chapter-1
+            - chapter-2
+            - chapter-3
+            - chapter-4
+            - chapter-5
+            - chapter-6
+        user_profile:
+          $ref: '#/components/schemas/UserProfile'
+
+    UserProfile:
+      type: object
+      required:
+        - programming_level
+        - hardware_background
+        - learning_goals
+      properties:
+        programming_level:
+          type: string
+          enum:
+            - beginner
+            - intermediate
+            - advanced
+          description: User's programming experience level
+        hardware_background:
+          type: string
+          enum:
+            - none
+            - hobbyist
+            - professional
+          description: User's hardware/robotics experience
+        learning_goals:
+          type: array
+          items:
+            type: string
+            enum:
+              - career_transition
+              - academic
+              - personal
+              - upskilling
+          minItems: 1
+          description: User's learning objectives
+
+    PersonalizeResponse:
+      type: object
+      required:
+        - chapter_slug
+        - original_title
+        - personalized_content
+        - metadata
+      properties:
+        chapter_slug:
+          type: string
+          description: Echo of input chapter slug
+        original_title:
+          type: string
+          description: Original chapter title
+        personalized_content:
+          type: string
+          description: AI-generated personalized content in markdown format
+        metadata:
+          $ref: '#/components/schemas/PersonalizeMetadata'
+
+    PersonalizeMetadata:
+      type: object
+      required:
+        - processing_time_ms
+        - tokens_used
+        - profile_summary
+      properties:
+        processing_time_ms:
+          type: integer
+          description: Time taken to generate personalized content
+        tokens_used:
+          type: integer
+          description: OpenAI tokens consumed
+        profile_summary:
+          type: string
+          description: Human-readable summary of personalization applied
+
+    ErrorResponse:
+      type: object
+      required:
+        - error
+        - message
+      properties:
+        error:
+          type: string
+          description: Error type identifier
+        message:
+          type: string
+          description: Human-readable error message
