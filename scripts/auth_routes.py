@@ -140,16 +140,12 @@ async def sign_up(request: SignUpRequest, response: Response):
             raise HTTPException(status_code=409, detail="Email already registered")
 
         # Hash password
-        logger.info(f"Hashing password for {request.email}")
         password_hash = hash_password(request.password)
-        logger.info("Password hashed successfully")
 
         # Convert learning goals to list of strings
         learning_goals = [goal.value for goal in request.learningGoals]
-        logger.info(f"Learning goals: {learning_goals}")
 
         # Insert new user
-        logger.info("Inserting user into database")
         cursor.execute(
             """
             INSERT INTO users (email, password_hash, name, programming_level, hardware_background, learning_goals)
@@ -168,15 +164,11 @@ async def sign_up(request: SignUpRequest, response: Response):
 
         row = cursor.fetchone()
         conn.commit()
-        logger.info(f"User inserted: {row[0]}")
 
         user = user_to_response(row)
-        logger.info(f"User response created: {user.id}")
 
         # Create and set session token
-        logger.info("Creating access token")
         token = create_access_token(user.id, user.email)
-        logger.info("Token created successfully")
         response.set_cookie(
             key=COOKIE_NAME,
             value=token,
@@ -194,8 +186,7 @@ async def sign_up(request: SignUpRequest, response: Response):
     except Exception as e:
         conn.rollback()
         logger.error(f"Sign up error: {type(e).__name__}: {e}")
-        # Include full error for debugging (remove in production)
-        raise HTTPException(status_code=500, detail=f"Failed to create account: {type(e).__name__}: {str(e)}")
+        raise HTTPException(status_code=500, detail="Failed to create account")
     finally:
         cursor.close()
         conn.close()
