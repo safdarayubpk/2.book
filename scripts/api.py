@@ -234,7 +234,7 @@ def load_env() -> None:
     else:
         logger.info("No .env file found - using environment variables directly")
 
-    required_vars = ["COHERE_API_KEY", "QDRANT_URL", "QDRANT_API_KEY", "DATABASE_URL", "OPENAI_API_KEY"]
+    required_vars = ["COHERE_API_KEY", "QDRANT_URL", "QDRANT_API_KEY", "DATABASE_URL", "OPENAI_API_KEY", "BETTER_AUTH_SECRET"]
     missing = [v for v in required_vars if not os.getenv(v)]
     if missing:
         logger.error(f"Missing environment variables: {', '.join(missing)}")
