@@ -15,8 +15,8 @@ const API_BASE_URL =
     ? (window as unknown as { ENV_API_URL: string }).ENV_API_URL
     : 'https://safdarayub-book-rag-api.hf.space';
 
-// Timeout for personalization requests (30 seconds as per spec)
-const PERSONALIZE_TIMEOUT_MS = 30000;
+// Timeout for personalization requests (60 seconds to handle cold starts and large chapters)
+const PERSONALIZE_TIMEOUT_MS = 60000;
 
 /**
  * Custom error types for personalization

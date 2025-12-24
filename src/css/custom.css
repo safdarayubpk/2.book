@@ -48,6 +48,14 @@ textarea {
   min-width: 44px;
 }
 
+/* Exclude sidebar collapse button from min-size constraints */
+[class*="collapseSidebarButton"],
+[class*="expandButton"],
+.theme-doc-sidebar-container button {
+  min-height: unset;
+  min-width: unset;
+}
+
 /* Links within content can be inline */
 .markdown a,
 article a {
@@ -236,12 +244,7 @@ article a {
   margin: 0 auto;                     /* Center the container */
 }
 
-/* --- Left Sidebar: Fixed width at left edge --- */
-[class*="docSidebarContainer"] {
-  width: var(--layout-sidebar-width);
-  flex: 0 0 var(--layout-sidebar-width);
-}
-
+/* --- Left Sidebar: Let Docusaurus handle width for collapse support --- */
 [class*="docSidebarContainer"] .menu {
   overflow-y: auto;
   max-height: calc(100vh - var(--ifm-navbar-height) - 2rem);
