@@ -3,6 +3,10 @@
  * Optimized for readability on mobile devices with 3G performance targets.
  */
 
+/* === Urdu Font Import === */
+/* Feature: 013-urdu-translation */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;700&display=swap');
+
 /* === Infima Variable Overrides === */
 :root {
   --ifm-color-primary: #1a73e8;
@@ -343,4 +347,85 @@ article a {
     line-height: 1.5;
     max-width: none;
   }
+}
+
+/* === Urdu Translation RTL Styles === */
+/* Feature: 013-urdu-translation */
+
+.urdu-content {
+  direction: rtl;
+  text-align: right;
+  font-family: 'Noto Nastaliq Urdu', 'Jameel Noori Nastaleeq', 'Urdu Typesetting', serif;
+  line-height: 2.2;
+  font-size: 1.1rem;
+}
+
+.urdu-content h1,
+.urdu-content h2,
+.urdu-content h3,
+.urdu-content h4,
+.urdu-content h5,
+.urdu-content h6 {
+  font-family: 'Noto Nastaliq Urdu', 'Jameel Noori Nastaleeq', serif;
+  line-height: 1.8;
+}
+
+/* Keep code blocks LTR for readability */
+.urdu-content pre,
+.urdu-content code {
+  direction: ltr;
+  text-align: left;
+  font-family: var(--ifm-font-family-monospace);
+}
+
+/* Keep code inline with proper direction */
+.urdu-content p code,
+.urdu-content li code {
+  direction: ltr;
+  unicode-bidi: embed;
+}
+
+/* Translation banner styling */
+.translation-banner {
+  background: linear-gradient(135deg, #1a73e8 0%, #4da3ff 100%);
+  color: white;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 500;
+}
+
+[data-theme='dark'] .translation-banner {
+  background: linear-gradient(135deg, #2e91ff 0%, #6cb5ff 100%);
+}
+
+/* Translation button group */
+.translation-button-group {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.5rem;
+}
+
+/* Urdu-specific list styling */
+.urdu-content ul,
+.urdu-content ol {
+  padding-right: 1.5rem;
+  padding-left: 0;
+}
+
+.urdu-content li {
+  text-align: right;
+}
+
+/* Blockquotes in RTL */
+.urdu-content blockquote {
+  border-left: none;
+  border-right: 4px solid var(--ifm-color-primary);
+  padding-right: 1rem;
+  padding-left: 0;
+  border-radius: 8px 0 0 8px;
 }

@@ -53,9 +53,9 @@ TypeScript 5.x (Docusaurus uses TypeScript/React): Follow standard conventions
 Python 3.x: Follow existing patterns in scripts/ (load_env, batch processing, progress logging)
 
 ## Recent Changes
+- 013-urdu-translation: Added TypeScript 5.x (frontend), Python 3.11 (backend) + React 18.x, Docusaurus 3.x (frontend); FastAPI, OpenAI (backend)
 - 012-content-personalization: Added TypeScript 5.x (frontend), Python 3.11 (backend) + React 18.x, Docusaurus 3.x (frontend); FastAPI, OpenAI (backend)
 - 011-user-auth: Added Python 3.11 (backend), TypeScript 5.x (frontend) + FastAPI, uvicorn, passlib, PyJWT (backend); React 18.x, Docusaurus 3.x (frontend)
-- 010-layout-spacing: Added CSS3 (within Docusaurus 3.x TypeScript/React project) + Docusaurus classic theme, Infima CSS framework
 
 <!-- MANUAL ADDITIONS START -->
 <!-- MANUAL ADDITIONS END -->

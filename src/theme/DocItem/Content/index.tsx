@@ -1,6 +1,6 @@
 /**
- * DocItem/Content - Swizzled component to inject PersonalizeButton
- * Wraps the default DocItem content with personalization functionality
+ * DocItem/Content - Swizzled component to inject PersonalizeButton and TranslateButton
+ * Wraps the default DocItem content with personalization and translation functionality
  */
 
 import React from 'react';
@@ -9,11 +9,12 @@ import DocItemContent from '@theme-original/DocItem/Content';
 import type DocItemContentType from '@theme/DocItem/Content';
 import type { WrapperProps } from '@docusaurus/types';
 import { PersonalizeButton } from '../../../components/PersonalizeButton';
+import { TranslateButton } from '../../../components/TranslateButton';
 import type { ChapterSlug } from '../../../types/personalization';
 
 type Props = WrapperProps<typeof DocItemContentType>;
 
-// Valid chapter slugs that support personalization
+// Valid chapter slugs that support personalization and translation
 const VALID_CHAPTER_SLUGS: ChapterSlug[] = [
   'intro',
   'chapter-1',
@@ -44,10 +45,11 @@ export default function DocItemContentWrapper(props: Props): JSX.Element {
 
   return (
     <>
-      {/* Inject PersonalizeButton at the top of chapter pages */}
+      {/* Inject PersonalizeButton and TranslateButton at the top of chapter pages */}
       {chapterSlug && (
-        <div style={{ marginBottom: '1.5rem' }}>
+        <div className="translation-button-group">
           <PersonalizeButton chapterSlug={chapterSlug} />
+          <TranslateButton chapterSlug={chapterSlug} />
         </div>
       )}
       <DocItemContent {...props} />
