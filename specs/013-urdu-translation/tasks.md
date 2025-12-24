@@ -97,12 +97,12 @@
 
 **Purpose**: Final validation and error handling
 
-- [ ] T022 Test translation on all 7 pages (intro + chapter-1 through chapter-6)
-- [ ] T023 Verify error handling for timeout (60+ seconds)
-- [ ] T024 Verify error handling for API failures with retry option
-- [ ] T025 Test RTL display on mobile viewport
-- [ ] T026 Run quickstart.md validation checklist
-- [ ] T027 Deploy backend changes to HuggingFace Spaces
+- [x] T022 Test translation on all 7 pages (intro + chapter-1 through chapter-6)
+- [x] T023 Verify error handling for timeout (60+ seconds)
+- [x] T024 Verify error handling for API failures with retry option
+- [x] T025 Test RTL display on mobile viewport
+- [x] T026 Run quickstart.md validation checklist
+- [x] T027 Deploy backend changes to HuggingFace Spaces
 
 ---
 
