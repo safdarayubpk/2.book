@@ -94,18 +94,39 @@ def get_chapter_content_from_qdrant(
         return None
 
     try:
-        # Search for chunks matching this chapter's slug
-        # Use scroll to get all chunks for the chapter
-        results, _ = qdrant_client.scroll(
-            collection_name=COLLECTION_NAME,
-            scroll_filter={
-                "must": [
-                    {"key": "slug", "match": {"value": chapter_slug}}
-                ]
-            },
-            limit=100,  # Should be enough for any chapter
-            with_payload=True
-        )
+        # Build source_path pattern based on chapter_slug
+        # e.g., "chapter-1" -> "docs/chapter-1/" or "intro" -> "docs/intro"
+        if chapter_slug == "intro":
+            source_path_prefix = "docs/intro"
+        else:
+            source_path_prefix = f"docs/{chapter_slug}/"
+
+        # Scroll through all chunks and filter by source_path prefix
+        # This is more reliable than Qdrant text filtering
+        all_results = []
+        offset = None
+
+        while True:
+            results, offset = qdrant_client.scroll(
+                collection_name=COLLECTION_NAME,
+                limit=100,
+                offset=offset,
+                with_payload=True
+            )
+
+            if not results:
+                break
+
+            # Filter for chunks matching this chapter
+            for point in results:
+                source_path = point.payload.get("source_path", "")
+                if source_path.startswith(source_path_prefix):
+                    all_results.append(point)
+
+            if offset is None:
+                break
+
+        results = all_results
 
         if not results:
             logger.warning(f"No content found for chapter: {chapter_slug}")
