@@ -42,6 +42,9 @@ from .auth_routes import router as auth_router
 # Import personalization utilities
 from .personalization_utils import personalize_chapter_content, VALID_CHAPTER_SLUGS
 
+# Import translation utilities
+from .translation_utils import translate_chapter_content
+
 
 # Configure logging
 logging.basicConfig(
@@ -177,6 +180,33 @@ class PersonalizeResponse(BaseModel):
     original_title: str = Field(..., description="Original chapter title")
     personalized_content: str = Field(..., description="AI-generated personalized content")
     metadata: PersonalizeMetadata = Field(..., description="Processing information")
+
+
+# =============================================================================
+# Translation Pydantic Models (Feature: 013-urdu-translation)
+# =============================================================================
+
+class TranslateRequest(BaseModel):
+    """Request for Urdu translation."""
+    chapter_id: str = Field(
+        ...,
+        description="Chapter identifier (intro, chapter-1 through chapter-6)"
+    )
+    user_id: str = Field(
+        ...,
+        description="Firebase UID of authenticated user"
+    )
+
+
+class TranslateResponse(BaseModel):
+    """Response with translated content."""
+    chapter_id: str = Field(..., description="Echo of input chapter ID")
+    original_title: str = Field(..., description="Original English chapter title")
+    translated_title: str = Field(..., description="Urdu translated title")
+    translated_content: str = Field(..., description="Full Urdu translation in markdown")
+    source_language: str = Field(default="en", description="Source language")
+    target_language: str = Field(default="ur", description="Target language")
+    translated_at: str = Field(..., description="ISO 8601 timestamp of translation")
 
 
 # =============================================================================
@@ -931,6 +961,76 @@ async def personalize_content(request: PersonalizeRequest):
     except Exception as e:
         # Unexpected error
         logger.error(f"Personalization unexpected error: {e}")
+        raise HTTPException(status_code=500, detail="An unexpected error occurred")
+
+
+@app.post("/translate", response_model=TranslateResponse)
+async def translate_content_endpoint(request: TranslateRequest):
+    """
+    Translate chapter content to Urdu.
+
+    Takes a chapter ID and user ID, returns translated content with
+    proper Urdu text that preserves code blocks and technical terms.
+
+    Feature: 013-urdu-translation
+    """
+    start_time = time.time()
+
+    # Log request
+    logger.info(f"Translate request: chapter={request.chapter_id}, user={request.user_id}")
+
+    # Validate chapter ID
+    if request.chapter_id not in VALID_CHAPTER_SLUGS:
+        raise HTTPException(
+            status_code=400,
+            detail=f"Invalid chapter_id: must be one of {', '.join(VALID_CHAPTER_SLUGS)}"
+        )
+
+    # Validate user_id is provided
+    if not request.user_id or len(request.user_id.strip()) == 0:
+        raise HTTPException(
+            status_code=401,
+            detail="User authentication required"
+        )
+
+    try:
+        # Call translation utility
+        result = translate_chapter_content(
+            openai_client=openai_client,
+            qdrant_client=qdrant_client,
+            chapter_id=request.chapter_id,
+            user_id=request.user_id
+        )
+
+        # Build response
+        response = TranslateResponse(
+            chapter_id=result["chapter_id"],
+            original_title=result["original_title"],
+            translated_title=result["translated_title"],
+            translated_content=result["translated_content"],
+            source_language=result["source_language"],
+            target_language=result["target_language"],
+            translated_at=result["translated_at"]
+        )
+
+        elapsed = time.time() - start_time
+        logger.info(f"Translation complete: {elapsed:.2f}s")
+
+        return response
+
+    except ValueError as e:
+        # Content not found or invalid input
+        logger.warning(f"Translation validation error: {e}")
+        raise HTTPException(status_code=404, detail=str(e))
+
+    except RuntimeError as e:
+        # OpenAI or other runtime error
+        logger.error(f"Translation runtime error: {e}")
+        raise HTTPException(status_code=500, detail="Unable to translate content. Please try again.")
+
+    except Exception as e:
+        # Unexpected error
+        logger.error(f"Translation unexpected error: {e}")
         raise HTTPException(status_code=500, detail="An unexpected error occurred")
 
 
