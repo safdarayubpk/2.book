@@ -22,6 +22,8 @@ Auto-generated from all feature plans. Last updated: 2025-12-13
 - Neon PostgreSQL (existing - add users/sessions tables) (011-user-auth)
 - TypeScript 5.x (frontend), Python 3.11 (backend) + React 18.x, Docusaurus 3.x (frontend); FastAPI, OpenAI (backend) (012-content-personalization)
 - Neon PostgreSQL (user profiles), Qdrant (chapter vectors) - existing (012-content-personalization)
+- CSS3 (with CSS Module overrides) + Docusaurus 3.x, Infima CSS framework (015-mobile-chatbot-ux)
+- N/A (no data changes) (015-mobile-chatbot-ux)
 
 ## Project Structure
 
@@ -53,10 +55,9 @@ TypeScript 5.x (Docusaurus uses TypeScript/React): Follow standard conventions
 Python 3.x: Follow existing patterns in scripts/ (load_env, batch processing, progress logging)
 
 ## Recent Changes
+- 015-mobile-chatbot-ux: Added CSS3 (with CSS Module overrides) + Docusaurus 3.x, Infima CSS framework
 - 014-custom-branding: Static asset replacement (SVG logo, ICO favicon) - no code changes, Docusaurus 3.x
 - 013-urdu-translation: Added TypeScript 5.x (frontend), Python 3.11 (backend) + React 18.x, Docusaurus 3.x (frontend); FastAPI, OpenAI (backend)
-- 012-content-personalization: Added TypeScript 5.x (frontend), Python 3.11 (backend) + React 18.x, Docusaurus 3.x (frontend); FastAPI, OpenAI (backend)
-- 011-user-auth: Added Python 3.11 (backend), TypeScript 5.x (frontend) + FastAPI, uvicorn, passlib, PyJWT (backend); React 18.x, Docusaurus 3.x (frontend)
 
 <!-- MANUAL ADDITIONS START -->
 <!-- MANUAL ADDITIONS END -->

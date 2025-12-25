@@ -229,6 +229,16 @@
 }
 
 /* Responsive styles */
+
+/* Mobile viewport fixes - Feature 015 */
+@media (max-width: 996px) {
+  .chatPanel {
+    width: 100vw;
+    height: 100vh; /* Fallback for older browsers */
+    height: 100dvh; /* Dynamic viewport height - accounts for browser UI */
+  }
+}
+
 @media (max-width: 768px) {
   .chatPanel {
     width: 100vw;

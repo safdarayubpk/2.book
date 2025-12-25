@@ -9,6 +9,7 @@
   padding: 12px;
   border-top: 1px solid var(--ifm-color-emphasis-200);
   background: var(--ifm-background-color);
+  flex-shrink: 0; /* Prevent collapse when keyboard appears - Feature 015 */
 }
 
 .inputContainer.focused {
@@ -94,4 +95,15 @@
 .sendButton:focus {
   outline: 2px solid var(--ifm-color-primary);
   outline-offset: 2px;
+}
+
+/* Mobile viewport fixes - Feature 015 */
+@media (max-width: 996px) {
+  .inputContainer {
+    padding-bottom: calc(12px + env(safe-area-inset-bottom, 0px));
+  }
+
+  .textarea {
+    font-size: 16px; /* Prevent iOS Safari auto-zoom on input focus */
+  }
 }
